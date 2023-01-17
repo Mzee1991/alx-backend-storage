@@ -9,14 +9,14 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
     nginx_logs = client.logs.nginx
     # get number of documents in collection
-    docs_num = nginx_logs.count_documents({})
-    get_num = nginx_logs.count_documents({'method': 'GET'})
-    post_num = nginx_logs.count_documents({'method': 'POST'})
-    put_num = nginx_logs.count_documents({'method': 'PUT'})
-    patch_num = nginx_logs.count_documents({'method': 'PATCH'})
-    delete_num = nginx_logs.count_documents({'method': 'DELETE'})
-    get_status = nginx_logs.count_documents({'method': 'GET',
-                                             'path': '/status'})
+    docs_num = nginx_logs.count()
+    get_num = nginx_logs.find({'method': 'GET'}).count()
+    post_num = nginx_logs.find({'method': 'POST'}).count()
+    put_num = nginx_logs.find({'method': 'PUT'}).count()
+    patch_num = nginx_logs.find({'method': 'PATCH'}).count()
+    delete_num = nginx_logs.find({'method': 'DELETE'}).count()
+    get_status = nginx_logs.find({'method': 'GET', 'path': '/status'}).count()
+    
     print("{} logs".format(docs_num))
     print("Methods:")
     print("\tmethod GET: {}".format(get_num))
